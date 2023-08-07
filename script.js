@@ -25,13 +25,6 @@ function displayPhotos() {
   });
 }
 
-// helper function
-function setAttributes(alement, attributes) {
-  for (const key in attributes) {
-    element.setAttribute(key, attributes(key));
-  }
-}
-
 // get photos from unsplash api
 async function getPhotos() {
   try {
@@ -41,5 +34,16 @@ async function getPhotos() {
     displayPhotos();
   } catch (error) {}
 }
+
+// check to see if scrolling is near bottom of the page
+window.addEventListener("scroll", () => {
+  if (
+    window.innerHeight + window.scrollY >=
+    document.body.offsetHeight - 1000
+  ) {
+    getPhotos();
+    console.log("load more");
+  }
+});
 
 getPhotos();
